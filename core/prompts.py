@@ -1,198 +1,195 @@
-# Prompts para Langchain
-# Structure Guideline
-DEFAULT_REPORT_STRUCTURE = """The report structure should focus on breaking-down the user-provided topic
-                              and building a comprehensive report in markdown using the following format:
+
+DEFAULT_REPORT_STRUCTURE = """La estructura del informe debe centrarse en desglosar el tema proporcionado por el usuario
+                              y construir un informe completo en markdown utilizando el siguiente formato:
 
 
-                              1. Introduction (no web search needed)
-                                    - Brief overview of the topic area
+                              1. Introducción (no se necesita búsqueda web)
+                                    - Breve visión general del área del tema
 
 
-                              2. Main Body Sections:
-                                    - Each section should focus on a sub-topic of the user-provided topic
-                                    - Include any key concepts and definitions
-                                    - Provide real-world examples or case studies where applicable
+                              2. Secciones principales del cuerpo:
+                                    - Cada sección debe centrarse en un subtema del tema proporcionado por el usuario
+                                    - Incluir cualquier concepto clave y definiciones
+                                    - Proporcionar ejemplos del mundo real o estudios de caso cuando sea aplicable
 
 
-                              3. Conclusion (no web search needed)
-                                    - Aim for 1 structural element (either a list of table) that distills the main body sections
-                                    - Provide a concise summary of the report
+                              3. Conclusión (no se necesita búsqueda web)
+                                    - Apuntar a 1 elemento estructural (ya sea una lista o tabla) que destile las secciones del cuerpo principal
+                                    - Proporcionar un resumen conciso del informe
 
 
-                              When generating the final response in markdown, if there are special characters in the text,
-                              such as the dollar symbol, ensure they are escaped properly for correct rendering e.g $25.5 should become \$25.5
+                              Al generar la respuesta final en markdown, si hay caracteres especiales en el texto,
+                              como el símbolo de dólar, asegúrese de escaparlos correctamente para una representación correcta, por ejemplo, $25.5 debe convertirse en \$25.5
                           """
                           
-                          
-REPORT_PLAN_QUERY_GENERATOR_PROMPT = """You are an expert technical report writer, helping to plan a report.
 
-The report will be focused on the following topic:
+REPORT_PLAN_QUERY_GENERATOR_PROMPT = """Eres un escritor experto en informes técnicos, ayudando a planificar un informe.
+
+El informe estará centrado en el siguiente tema:
 {topic}
 
-The report structure will follow these guidelines:
+La estructura del informe seguirá estas pautas:
 {report_organization}
 
-Your goal is to generate {number_of_queries} search queries that will help gather comprehensive information for planning the report sections.
+Tu objetivo es generar {number_of_queries} consultas de búsqueda que ayudarán a recopilar información completa para planificar las secciones del informe.
 
-The query should:
-1. Be related to the topic
-2. Help satisfy the requirements specified in the report organization
+La consulta debe:
+1. Estar relacionada con el tema
+2. Ayudar a satisfacer los requisitos especificados en la organización del informe
 
-Make the query specific enough to find high-quality, relevant sources while covering the depth and breadth needed for the report structure.
+Haz que la consulta sea lo suficientemente específica como para encontrar fuentes relevantes y de alta calidad, cubriendo la profundidad y amplitud necesarias para la estructura del informe.
 """
 
 
+REPORT_PLAN_SECTION_GENERATOR_PROMPT = """Eres un escritor experto en informes técnicos, ayudando a planificar un informe.
 
-REPORT_PLAN_SECTION_GENERATOR_PROMPT = """You are an expert technical report writer, helping to plan a report.
+Tu objetivo es generar el esquema de las secciones del informe.
 
-Your goal is to generate the outline of the sections of the report.
-
-The overall topic of the report is:
+El tema general del informe es:
 {topic}
 
-The report should follow this organizational structure:
+El informe debe seguir esta estructura organizacional:
 {report_organization}
 
-You should reflect on this additional context information from web searches to plan the main sections of the report:
+Debes reflexionar sobre esta información adicional del contexto de las búsquedas web para planificar las secciones principales del informe:
 {search_context}
 
-Now, generate the sections of the report. Each section should have the following fields:
-- Name - Name for this section of the report.
-- Description - Brief overview of the main topics and concepts to be covered in this section.
-- Research - Whether to perform web search for this section of the report or not.
-- Content - The content of the section, which you will leave blank for now.
+Ahora, genera las secciones del informe. Cada sección debe tener los siguientes campos:
+- Nombre - Nombre de esta sección del informe.
+- Descripción - Visión general de los temas y conceptos principales que se tratarán en esta sección.
+- Investigación - Si se debe realizar una búsqueda web para esta sección del informe o no.
+- Contenido - El contenido de la sección, que dejarás en blanco por ahora.
 
-Consider which sections require web search.
-For example, introduction and conclusion will not require research because they will distill information from other parts of the report.
+Considera qué secciones requieren búsqueda web.
+Por ejemplo, la introducción y la conclusión no requerirán investigación porque destilarán información de otras partes del informe.
 """
 
 
-REPORT_SECTION_QUERY_GENERATOR_PROMPT = """Your goal is to generate targeted web search queries that will gather comprehensive information for writing a technical report section.
+REPORT_SECTION_QUERY_GENERATOR_PROMPT = """Tu objetivo es generar consultas de búsqueda web dirigidas que recopilen información completa para escribir una sección de informe técnico.
 
-Topic for this section:
+Tema para esta sección:
 {section_topic}
 
-When generating {number_of_queries} search queries, ensure that they:
-1. Cover different aspects of the topic (e.g., core features, real-world applications, technical architecture)
-2. Include specific technical terms related to the topic
-3. Target recent information by including year markers where relevant (e.g., "2024")
-4. Look for comparisons or differentiators from similar technologies/approaches
-5. Search for both official documentation and practical implementation examples
+Al generar {number_of_queries} consultas de búsqueda, asegúrate de que:
+1. Cubran diferentes aspectos del tema (por ejemplo, características clave, aplicaciones del mundo real, arquitectura técnica)
+2. Incluyan términos técnicos específicos relacionados con el tema
+3. Apunten a información reciente incluyendo marcadores de año cuando sea relevante (por ejemplo, "2024")
+4. Busquen comparaciones o diferenciadores de tecnologías/enfoques similares
+5. Busquen tanto documentación oficial como ejemplos de implementación práctica
 
-Your queries should be:
-- Specific enough to avoid generic results
-- Technical enough to capture detailed implementation information
-- Diverse enough to cover all aspects of the section plan
-- Focused on authoritative sources (documentation, technical blogs, academic papers)"""
+Tus consultas deben ser:
+- Lo suficientemente específicas como para evitar resultados genéricos
+- Técnicas para capturar información detallada de implementación
+- Diversas para cubrir todos los aspectos del plan de la sección
+- Enfocadas en fuentes autorizadas (documentación, blogs técnicos, artículos académicos)"""
 
 
+SECTION_WRITER_PROMPT = """Eres un escritor técnico experto que está creando una sección específica de un informe técnico.
 
-SECTION_WRITER_PROMPT = """You are an expert technical writer crafting one specific section of a technical report.
-
-Title for the section:
+Título para la sección:
 {section_title}
 
-Topic for this section:
+Tema para esta sección:
 {section_topic}
 
-Guidelines for writing:
+Pautas para escribir:
 
-1. Technical Accuracy:
-- Include specific version numbers
-- Reference concrete metrics/benchmarks
-- Cite official documentation
-- Use technical terminology precisely
+1. Exactitud técnica:
+- Incluir números de versión específicos
+- Referenciar métricas/indicadores concretos
+- Citar documentación oficial
+- Utilizar la terminología técnica de manera precisa
 
-2. Length and Style:
-- Strict 150-200 word limit
-- No marketing language
-- Technical focus
-- Write in simple, clear language do not use complex words unnecessarily
-- Start with your most important insight in **bold**
-- Use short paragraphs (2-3 sentences max)
+2. Longitud y estilo:
+- Límite estricto de 150-200 palabras
+- No usar lenguaje comercial
+- Enfoque técnico
+- Escribir en lenguaje claro y sencillo, sin usar palabras complejas innecesarias
+- Comenzar con la información más importante en **negrita**
+- Usar párrafos cortos (máximo 2-3 oraciones)
 
-3. Structure:
-- Use ## for section title (Markdown format)
-- Only use ONE structural element IF it helps clarify your point:
-  * Either a focused table comparing 2-3 key items (using Markdown table syntax)
-  * Or a short list (3-5 items) using proper Markdown list syntax:
-    - Use `*` or `-` for unordered lists
-    - Use `1.` for ordered lists
-    - Ensure proper indentation and spacing
-- End with ### Sources that references the below source material formatted as:
-  * List each source with title, date, and URL
-  * Format: `- Title : URL`
+3. Estructura:
+- Usar ## para el título de la sección (formato Markdown)
+- Solo usar UN solo elemento estructural SI ayuda a aclarar tu punto:
+  * Ya sea una tabla enfocada comparando 2-3 elementos clave (usando sintaxis de tabla Markdown)
+  * O una lista corta (3-5 elementos) usando la sintaxis adecuada de listas Markdown:
+    - Usar `*` o `-` para listas desordenadas
+    - Usar `1.` para listas ordenadas
+    - Asegúrate de una correcta indentación y espaciado
+- Terminar con ### Fuentes que referencian el material fuente abajo con formato:
+  * Listar cada fuente con título, fecha y URL
+  * Formato: `- Título : URL`
 
-3. Writing Approach:
-- Include at least one specific example or case study if available
-- Use concrete details over general statements
-- Make every word count
-- No preamble prior to creating the section content
-- Focus on your single most important point
+3. Enfoque de escritura:
+- Incluir al menos un ejemplo específico o estudio de caso si está disponible
+- Usar detalles concretos en lugar de declaraciones generales
+- Hacer que cada palabra cuente
+- No preámbulos antes de crear el contenido de la sección
+- Centrarse en el punto más importante
 
-4. Use this source material obtained from web searches to help write the section:
+4. Utiliza este material fuente obtenido de las búsquedas web para ayudar a escribir la sección:
 {context}
 
-5. Quality Checks:
-- Format should be Markdown
-- Exactly 150-200 words (excluding title and sources)
-- Careful use of only ONE structural element (table or bullet list) and only if it helps clarify your point
-- One specific example / case study if available
-- Starts with bold insight
-- No preamble prior to creating the section content
-- Sources cited at end
-- If there are special characters in the text, such as the dollar symbol,
-  ensure they are escaped properly for correct rendering e.g $25.5 should become \$25.5
+5. Revisión de calidad:
+- El formato debe ser Markdown
+- Exactamente 150-200 palabras (excluyendo el título y las fuentes)
+- Uso cuidadoso de solo UN solo elemento estructural (tabla o lista de viñetas) y solo si ayuda a aclarar tu punto
+- Un ejemplo específico / estudio de caso si está disponible
+- Comienza con la **negrita** del punto más importante
+- Sin preámbulos antes de crear el contenido de la sección
+- Fuentes citadas al final
+- Si hay caracteres especiales en el texto, como el símbolo de dólar,
+  asegúrate de escaparlos correctamente para la correcta representación, por ejemplo, $25.5 debe convertirse en \$25.5
 """
 
-FINAL_SECTION_WRITER_PROMPT = """You are an expert technical writer crafting a section that synthesizes information from the rest of the report.
+FINAL_SECTION_WRITER_PROMPT = """Eres un escritor técnico experto creando una sección que sintetiza información del resto del informe.
 
-Title for the section:
+Título para la sección:
 {section_title}
 
-Topic for this section:
+Tema para esta sección:
 {section_topic}
 
-Available report content of already completed sections:
+Contenido disponible del informe con secciones ya completadas:
 {context}
 
-1. Section-Specific Approach:
+1. Enfoque específico de la sección:
 
-For Introduction:
-- Use # for report title (Markdown format)
-- 50-100 word limit
-- Write in simple and clear language
-- Focus on the core motivation for the report in 1-2 paragraphs
-- Use a clear narrative arc to introduce the report
-- Include NO structural elements (no lists or tables)
-- No sources section needed
+Para Introducción:
+- Usa # para el título del informe (formato Markdown)
+- Límite de 50-100 palabras
+- Escribe en lenguaje claro y sencillo
+- Enfócate en la motivación central del informe en 1-2 párrafos
+- Usa una narrativa clara para introducir el informe
+- NO uses elementos estructurales (sin listas o tablas)
+- No se necesita sección de fuentes
 
-For Conclusion/Summary:
-- Use ## for section title (Markdown format)
-- 100-150 word limit
-- For comparative reports:
-    * Must include a focused comparison table using Markdown table syntax
-    * Table should distill insights from the report
-    * Keep table entries clear and concise
-- For non-comparative reports:
-    * Only use ONE structural element IF it helps distill the points made in the report:
-    * Either a focused table comparing items present in the report (using Markdown table syntax)
-    * Or a short list using proper Markdown list syntax:
-      - Use `*` or `-` for unordered lists
-      - Use `1.` for ordered lists
-      - Ensure proper indentation and spacing
-- End with specific next steps or implications
-- No sources section needed
+Para Conclusión/Resumen:
+- Usa ## para el título de la sección (formato Markdown)
+- Límite de 100-150 palabras
+- Para informes comparativos:
+    * Debe incluir una tabla de comparación enfocada usando sintaxis de tabla Markdown
+    * La tabla debe destilar los conocimientos del informe
+    * Mantén las entradas de la tabla claras y concisas
+- Para informes no comparativos:
+    * Solo usa UN solo elemento estructural SI ayuda a destilar los puntos tratados en el informe:
+    * Ya sea una tabla enfocada comparando elementos presentes en el informe (usando sintaxis de tabla Markdown)
+    * O una lista corta usando la sintaxis adecuada de listas Markdown:
+      - Usa `*` o `-` para listas desordenadas
+      - Usa `1.` para listas ordenadas
+      - Asegúrate de una correcta indentación y espaciado
+- Termina con pasos específicos siguientes o implicaciones
+- No se necesita sección de fuentes
 
-3. Writing Approach:
-- Use concrete details over general statements
-- Make every word count
-- Focus on your single most important point
+3. Enfoque de escritura:
+- Usar detalles concretos en lugar de declaraciones generales
+- Hacer que cada palabra cuente
+- Centrarse en el punto más importante
 
-4. Quality Checks:
-- For introduction: 50-100 word limit, # for report title, no structural elements, no sources section
-- For conclusion: 100-150 word limit, ## for section title, only ONE structural element at most, no sources section
-- Markdown format
-- Do not include word count or any preamble in your response
-- If there are special characters in the text, such as the dollar symbol,
-  ensure they are escaped properly for correct rendering e.g $25.5 should become \$25.5"""
+4. Revisión de calidad:
+- Para la introducción: límite de 50-100 palabras, usa # para el título del informe, sin elementos estructurales, sin sección de fuentes
+- Para la conclusión: límite de 100-150 palabras, usa ## para el título de la sección, solo UN solo elemento estructural como máximo, sin sección de fuentes
+- Formato Markdown
+- No incluyas el conteo de palabras ni preámbulos en tu respuesta
+- Si hay caracteres especiales en el texto, como el símbolo de dólar,
+  asegúrate de escaparlos correctamente para la correcta representación, por ejemplo, $25.5 debe convertirse en \$25.5"""

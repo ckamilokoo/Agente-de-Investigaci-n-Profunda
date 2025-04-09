@@ -2,10 +2,10 @@
 # app/core/report_generation_logic.py
 from langgraph.graph import StateGraph, START, END
 from langgraph.constants import Send
-from app.models.report import ReportState, SectionState, SectionOutputState, Section, ReportStateInput, ReportStateOutput
-from app.core.section_processing import generate_queries, search_web, write_section, write_final_sections
-from app.core.report_planning import generate_report_plan
-from app.utils.formatting import format_sections
+from models.report import ReportState, SectionState, SectionOutputState, Section, ReportStateInput, ReportStateOutput
+from core.section_processing import generate_queries, search_web, write_section, write_final_sections
+from core.report_planning import generate_report_plan
+from utils.formatting import format_sections
 
 # Add nodes and edges for section builder
 section_builder = StateGraph(SectionState, output=SectionOutputState)

@@ -1,7 +1,7 @@
 # Archivo principal de FastAPI
 # app/main.py
 from fastapi import FastAPI
-from app.routers import report_generation
+from routers import report_generation
 
 app = FastAPI()
 

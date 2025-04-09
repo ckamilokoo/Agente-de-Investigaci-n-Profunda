@@ -6,7 +6,7 @@ from typing import List, Dict, Union, Any
 import tiktoken
 from typing import List, Dict, Union, Any
 
-from app.models.report import ReportState, Section
+from models.report import ReportState, Section
 
 def format_search_query_results(
     search_response: Union[Dict[str, Any], List[Any]],

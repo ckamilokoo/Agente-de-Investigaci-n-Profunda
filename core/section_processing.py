@@ -2,10 +2,10 @@
 # app/core/section_processing.py
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
-from app.core.search import run_search_queries, SearchQuery
-from app.utils.formatting import format_search_query_results
-from app.models.report import SectionState, Queries, Section
-from app.core.prompts import REPORT_SECTION_QUERY_GENERATOR_PROMPT, SECTION_WRITER_PROMPT, FINAL_SECTION_WRITER_PROMPT
+from core.search import run_search_queries, SearchQuery
+from utils.formatting import format_search_query_results
+from models.report import SectionState, Queries, Section
+from core.prompts import REPORT_SECTION_QUERY_GENERATOR_PROMPT, SECTION_WRITER_PROMPT, FINAL_SECTION_WRITER_PROMPT
 
 llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
 

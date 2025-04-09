@@ -2,10 +2,10 @@
 # app/core/report_planning.py
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
-from app.core.search import run_search_queries
-from app.core.prompts import DEFAULT_REPORT_STRUCTURE, REPORT_PLAN_QUERY_GENERATOR_PROMPT, REPORT_PLAN_SECTION_GENERATOR_PROMPT
-from app.models.report import Queries, ReportState, SearchQuery, Sections
-from app.utils.formatting import format_search_query_results
+from core.search import run_search_queries
+from core.prompts import DEFAULT_REPORT_STRUCTURE, REPORT_PLAN_QUERY_GENERATOR_PROMPT, REPORT_PLAN_SECTION_GENERATOR_PROMPT
+from models.report import Queries, ReportState, SearchQuery, Sections
+from utils.formatting import format_search_query_results
 
 llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
 

@@ -1,8 +1,8 @@
 # Rutas para generaci�n de reportes
 # app/routers/report_generation.py
 from fastapi import APIRouter, HTTPException
-from app.models.report import ReportStateInput, ReportStateOutput
-from app.core.report_generation_logic import reporter_agent
+from models.report import ReportStateInput, ReportStateOutput
+from core.report_generation_logic import reporter_agent
 from typing import Any
 
 router = APIRouter()
